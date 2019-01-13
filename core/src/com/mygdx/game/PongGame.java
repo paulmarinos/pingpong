@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-//test
+
 public class PongGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Ball ball;
@@ -22,6 +22,7 @@ public class PongGame extends ApplicationAdapter {
 	boolean isGameOver;
 	Button closeBtn;
 	Button replayBtn;
+	Texture skyTexture;
 	
 	@Override
 	public void create () {
@@ -38,6 +39,7 @@ public class PongGame extends ApplicationAdapter {
 		closeBtn.y  = 10;
 		replayBtn = new Button("replay_btn.png");
 		replayBtn.y = 10;
+		skyTexture = new Texture("sky_jpeg.jpg");
 
 		ball.restart(paddle);
 
@@ -51,12 +53,7 @@ public class PongGame extends ApplicationAdapter {
 				System.exit(0);
 			}
 			if (replayBtn.isReleased()){
-				score = 0;
-				livesCount = INITIAL_LIVES_COUNT;
-				isGameOver = false;
-				ball.velocityX = ball.velocityY = ball.INITIAL_VELOCITY;
-				paddle.center();
-				ball.restart(paddle);
+                replayGame();
 			}
 		}
 
@@ -81,10 +78,20 @@ public class PongGame extends ApplicationAdapter {
 		draw();
 	}
 
-	private void draw() {
+    private void replayGame() {
+        score = 0;
+        livesCount = INITIAL_LIVES_COUNT;
+        isGameOver = false;
+        ball.velocityX = ball.velocityY = ball.INITIAL_VELOCITY;
+        paddle.center();
+        ball.restart(paddle);
+    }
+
+    private void draw() {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		batch.draw(skyTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		paddle.draw(batch);
 		ball.draw(batch);
 		font.draw(batch, "score: " + score + " lives: " + livesCount, 0, Gdx.graphics.getHeight());
@@ -110,6 +117,7 @@ public class PongGame extends ApplicationAdapter {
 		gameOverTexture.dispose();
 		closeBtn.dispose();
 		replayBtn.dispose();
+		skyTexture.dispose();
 	}
 
 
