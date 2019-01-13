@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+//test
 public class PongGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Ball ball;
